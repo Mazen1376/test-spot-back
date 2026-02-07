@@ -1,9 +1,14 @@
 import { userModel } from '../models/userModel.js';
 
 export const authCallback = async (req, res) => {
+  console.log('--- INCOMING AUTH CALLBACK REQUEST ---');
   try {
     const { id, firstName, lastName, imageUrl } = req.body;
-    console.log('Auth callback received for user:', { firstName, lastName });
+    console.log('Auth callback received for user:', {
+      firstName,
+      lastName,
+      id,
+    });
 
     const user = await userModel.findOne({ clerkId: id });
 

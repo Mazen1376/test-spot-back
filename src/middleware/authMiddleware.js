@@ -13,14 +13,8 @@ export const requireAuth = async (req, res, next) => {
 export const requireAdmin = async (req, res, next) => {
   try {
     const currentUser = await clerkClient.users.getUser(req.auth.userId);
-    const userEmail = currentUser.emailAddresses[0].emailAddress;
-    const isAdmin = process.env.ADMIN_EMAIL === userEmail;
-
-    console.log('Admin Check:', {
-      expected: process.env.ADMIN_EMAIL,
-      actual: userEmail,
-      match: isAdmin,
-    });
+    const isAdmin =
+      process.env.ADMIN_EMAIL === currentUser.emailAddresses[0].emailAddress;
 
     if (!isAdmin) {
       return res.status(403).json({ message: 'Unauthorized (admin)' });

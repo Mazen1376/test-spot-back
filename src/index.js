@@ -5,7 +5,6 @@ import { createServer } from 'http';
 import fileUpload from 'express-fileupload';
 import os from 'os';
 import path from 'path';
-
 import { dbConnection } from './lib/db.js';
 
 import { userRoutes } from './routes/userRoutes.js';
@@ -23,7 +22,12 @@ dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 const httpServer = createServer(app);
 initSocket(httpServer);
@@ -52,5 +56,3 @@ app.use(statsRoutes);
 httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-// TODO: socket.io for chatting and realtime activity

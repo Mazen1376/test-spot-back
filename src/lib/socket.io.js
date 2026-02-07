@@ -4,7 +4,7 @@ import { messageModel } from '../models/messageModel.js';
 export const initSocket = (httpServer) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: 'http://localhost:5173',
+      origin: (origin, callback) => callback(null, true),
       credentials: true,
     },
   });
